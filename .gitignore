@@ -10,8 +10,16 @@
 /test/version_tmp/
 /tmp/
 
-# Used by dotenv library to load environment variables.
-# .env
+# Rails
+backend/log/*
+backend/tmp/*
+backend/vendor/bundle
+
+# React
+frontend/node_modules/
+
+# General
+*.env
 
 # Ignore Byebug command history file.
 .byebug_history

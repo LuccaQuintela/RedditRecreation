@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+  backend:
+    container_name: rrecreation_backend
+    build:
+      context: ./backend
+      dockerfile: .devcontainerDocker/Dockerfile
+    working_dir: /app
+    command: bash -lc 'bundle config set path /usr/local/bundle && bundle config set force_ruby_platform true && bundle install && bin/rails s -b 0.0.0.0 -p 3000'
+    volumes:
+      - ./backend:/app
+      - bundle:/usr/local/bundle
+    ports:
+      - "3000:3000"
+    # depends_on:
+      # - db
+
+  # frontend:
+  #   build: ./frontend
+  #   command: npm run dev -- --host 0.0.0.0 --port 5173
+  #   volumes:
+  #     - ./frontend:/app
+  #   ports:
+  #     - "5173:5173"
+
+  # db:
+  #   image: postgres:16
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: postgres
+  #   volumes:
+  #     - pgdata:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+
+volumes:
+  pgdata:
+  bundle:
