@@ -5,12 +5,34 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: var(--primary-color-tint-2);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+
+  --text-color-bright-1: #C4C4C4;
+  --text-color-bright-2: #808080;
+  --text-color-dark-1: #1F1F1F;
+
+  --primary-color: #006CA3;
+  --primary-color-shade-1: #115883;
+  --primary-color-shade-2: #164465;
+  --primary-color-shade-3: #163248;
+  --primary-color-tint-1: #4C85B4;
+  --primary-color-tint-2: #779FC4;
+  --primary-color-tint-3: #9FB9D5;
+  --primary-color-var-1: #00AAFF;
+  --primary-color-var-2: #5CC9FF;
+  --primary-color-var-3: #00AAFF;
+  --primary-color-var-4: #B8E7FF;
+  --secondary-color: #FCC314;
+  --third-color: #FFFFFF;
+  --fourth-color: #000000;
+  --orange-1: #FC9331;
+  --purple-1: #985EFD;
 }
 
 a {

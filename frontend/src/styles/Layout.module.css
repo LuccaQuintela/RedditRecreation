@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* full viewport height */
+}
+
+.main {
+    flex: 1; /* take up remaining space below navbar */
+    padding: 1rem;
+    padding-top: 2rem; /* extra padding at top */
+    margin-top: 2.5rem; /* space for fixed navbar */
+}
+  

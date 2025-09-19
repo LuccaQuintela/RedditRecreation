@@ -3,13 +3,13 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    @posts = Post.all
-    render json: @posts
+    @posts = Post.includes(:user).all
+    render json: @posts.as_json(include: :user)
   end
 
   # GET /posts/1
   def show
-    render json: @post
+    render json: @post.as_json(include: :user)
   end
 
   # POST /posts
@@ -40,11 +40,11 @@ class PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = Post.find(params.expect(:id))
+      @post = Post.includes(:user).find(params.expect(:id))
     end
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.expect(post: [ :title, :body, :user_id ])
+      @params = params.expect(post: [ :title, :body, :user_id ])
     end
 end
