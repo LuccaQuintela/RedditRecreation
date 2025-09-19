@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
 
     def index
         @comments = @post.comments
-        render json: @comments
+        render json: @comments.as_json(include: :user)
     end
 
     def show
@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
     
     def create
         @comment = @post.comments.create(comment_params)
-        render json: @comment
+        render json: @comment.as_json(include: :user)
     end
     
     def update
@@ -37,6 +37,6 @@ class CommentsController < ApplicationController
     end
     
     def comment_params
-        params.require(:comment).permit(:content)
+        params.require(:comment).permit(:body, :user_id, :parent_id)
     end
 end

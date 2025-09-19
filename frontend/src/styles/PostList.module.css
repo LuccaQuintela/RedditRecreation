@@ -12,21 +12,21 @@
 
 .loading {
     text-align: center;
-    color: #090909;
+    color: var(--primary-color);
     font-size: 1.1rem;
     margin: 2rem 0;
 }
 
 .error {
     text-align: center;
-    color: #ff4444;
+    color: var(--orange-1);
     font-size: 1.1rem;
     margin: 2rem 0;
 }
 
 .empty {
     text-align: center;
-    color: #7F7F7F;
+    color: var(--primary-color);
     font-size: 1.1rem;
     margin: 2rem 0;
 }
