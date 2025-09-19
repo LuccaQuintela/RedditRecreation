@@ -1,5 +1,3 @@
-
-
 import { useState } from 'react';
 import styles from '../styles/CreatePostsView.module.css';
 
@@ -7,7 +5,7 @@ export default function CreatePostView() {
     const [formData, setFormData] = useState({
         title: '',
         body: '',
-        user_id: 0
+        user_id: 2
     });
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -43,7 +41,7 @@ export default function CreatePostView() {
             if (response.ok) {
                 alert('Post created successfully!');
                 // Reset form
-                setFormData({ title: '', body: '', user_id: 0 });
+                setFormData({ title: '', body: '', user_id: 2 });
 
             } else {
                 alert('Failed to create post');

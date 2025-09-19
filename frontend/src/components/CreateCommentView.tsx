@@ -8,7 +8,6 @@ export default function CreateCommentView() {
 
     const [formData, setFormData] = useState({
         body: '',
-        user_id: 1,
         parent_id: null as number | null,
     });
 
@@ -33,21 +32,26 @@ export default function CreateCommentView() {
             return;
         }
 
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+            alert('You must be logged in to comment');
+            return;
+        }
+
         try {
             const response = await fetch(`http://localhost:3000/posts/${post_id}/comments`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify({
                     body: formData.body,
-                    user_id: formData.user_id,
                     parent_id: formData.parent_id,
                 }),
             });
 
             if (response.ok) {
-                // Optionally navigate back to the post detail
                 navigate(`/posts/${post_id}`);
             } else {
                 alert('Failed to create comment');

@@ -1,7 +1,31 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import styles from "../styles/Navbar.module.css";
 
 export default function Navbar() {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsLoggedIn(!!localStorage.getItem('authToken'));
+
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === 'authToken') {
+        setIsLoggedIn(!!e.newValue);
+      }
+    };
+
+    const handleAuthChanged = () => {
+      setIsLoggedIn(!!localStorage.getItem('authToken'));
+    };
+
+    window.addEventListener('storage', handleStorage);
+    window.addEventListener('authChanged', handleAuthChanged as EventListener);
+    return () => {
+      window.removeEventListener('storage', handleStorage);
+      window.removeEventListener('authChanged', handleAuthChanged as EventListener);
+    };
+  }, []);
+
   return (
     <nav className={styles.navbar}>
 
@@ -24,7 +48,9 @@ export default function Navbar() {
 
       <ul className={styles.navProfile}>
         <li>
-          <Link to="/profile" className={styles.navLink}>Profile</Link>
+          <Link to={isLoggedIn ? "/profile" : "/login"} className={styles.navLink}>
+            {isLoggedIn ? "Profile" : "Log In"}
+          </Link>
         </li>
       </ul>
     </nav>
