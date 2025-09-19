@@ -1,0 +1,100 @@
+.postCard {
+    background: var(--primary-color-tint-3);
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
+}
+
+.postCard:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.votingSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
+    min-width: 3rem;
+    padding: 0.25rem 0;
+}
+
+.upvoteButton, .downvoteButton {
+    background: transparent;
+    border: none;
+    color: var(--secondary-color);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.1rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.upvoteButton:hover, .downvoteButton:hover {
+    background: var(--primary-color-tint-1);
+}
+
+.upvoteButton:hover {
+    color: var(--orange-1);
+}
+
+.downvoteButton:hover {
+    color: var(--purple-1);
+}
+
+.voteCount {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 0.8rem;
+    min-width: 1.2rem;
+    text-align: center;
+}
+
+.contentSection {
+    flex: 1;
+    min-width: 0;
+}
+
+.postLink {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.title {
+    color: var(--primary-color);
+    margin: 0 0 0.5rem 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.author {
+    color: var(--primary-color-shade-1);
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.body {
+    color: #090909;
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
