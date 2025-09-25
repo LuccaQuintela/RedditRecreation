@@ -9,6 +9,7 @@ export default function LoginView() {
     });
     const [submitting, setSubmitting] = useState(false);
     const navigate = useNavigate();
+    const API_BASE_URL = import.meta.env.VITE_API_URL;
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -28,7 +29,7 @@ export default function LoginView() {
 
         try {
             setSubmitting(true);
-            const response = await fetch('http://localhost:3000/session', {
+            const response = await fetch(`${API_BASE_URL}/session`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

@@ -7,9 +7,10 @@ export default function PostList() {
     const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-
+    const API_BASE_URL = import.meta.env.VITE_API_URL;
+    console.log(`${API_BASE_URL}/posts`);
     useEffect(() => {
-        fetch('http://localhost:3000/posts')
+        fetch(`${API_BASE_URL}/posts`)
             .then((res) => res.json())
             .then((data) => {
                 console.log("Fetched posts:", data);
