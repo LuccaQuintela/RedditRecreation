@@ -5,6 +5,7 @@ import styles from '../styles/CreateCommentView.module.css';
 export default function CreateCommentView() {
     const { post_id } = useParams<{ post_id: string }>();
     const navigate = useNavigate();
+    const API_BASE_URL = import.meta.env.VITE_API_URL;
 
     const [formData, setFormData] = useState({
         body: '',
@@ -39,7 +40,7 @@ export default function CreateCommentView() {
         }
 
         try {
-            const response = await fetch(`http://localhost:3000/posts/${post_id}/comments`, {
+            const response = await fetch(`${API_BASE_URL}/posts/${post_id}/comments`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

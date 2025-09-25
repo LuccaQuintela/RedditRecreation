@@ -9,11 +9,12 @@ export default function PostDetail() {
     const { id } = useParams<{ id: string }>();
     const [post, setPost] = useState<Post | null>(null);
     const postId = id ? parseInt(id, 10) : null;
+    const API_BASE_URL = import.meta.env.VITE_API_URL;
     
     useEffect(() => {
         if (!postId) return;
 
-        fetch(`http://localhost:3000/posts/${postId}`)
+        fetch(`${API_BASE_URL}/posts/${postId}`)
             .then((res) => res.json())
             .then((data) => {console.log("Fetched post:", data); setPost(data);})
             .catch((err) => {console.error("Error fetching post:", err);});

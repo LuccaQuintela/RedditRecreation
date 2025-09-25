@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
     before_action :set_post
-    before_action :set_comment, only: [:show, :update, :destroy]
+    before_action :set_comment, only: %i[show update destroy]
+    before_action :authenticate_request, only: %i[create update destroy]
 
     def index
         @comments = @post.comments
@@ -12,7 +13,6 @@ class CommentsController < ApplicationController
     end
     
     def create
-        return unless authenticate_request
         @comment = @post.comments.new(comment_params)
         @comment.user = @current_user
         if @comment.save
@@ -34,28 +34,15 @@ class CommentsController < ApplicationController
     
     private
     
-        def set_post
-            @post = Post.find(params[:post_id])
-        end
-        
-        def set_comment
-            @comment = @post.comments.find(params[:id])
-        end
-        
-        def comment_params
-            params.require(:comment).permit(:body, :parent_id)
-        end
-
-        def authenticate_request
-            header = request.headers['Authorization']
-            token = header.split(' ').last if header
-            begin
-                decoded = JWT.decode(token, Rails.application.secret_key_base, true, algorithm: 'HS256')[0]
-                @current_user = User.find(decoded["user_id"])
-                true
-            rescue
-                render json: { error: 'Unauthorized' }, status: :unauthorized
-                false
-            end
-        end
+    def set_post
+        @post = Post.find(params[:post_id])
+    end
+    
+    def set_comment
+        @comment = @post.comments.find(params[:id])
+    end
+    
+    def comment_params
+        params.require(:comment).permit(:body, :parent_id)
+    end
 end

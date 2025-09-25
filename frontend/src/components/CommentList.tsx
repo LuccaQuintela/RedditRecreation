@@ -11,9 +11,10 @@ export default function CommentList({ post_id }: CommentListProps) {
     const [comments, setComments] = useState<Comment[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const API_BASE_URL = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
-        fetch(`http://localhost:3000/posts/${post_id}/comments`)
+        fetch(`${API_BASE_URL}/posts/${post_id}/comments`)
             .then((res) => res.json())
             .then((data) => {
                 console.log("Fetched comments: ", comments);

@@ -1,11 +1,13 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from '../styles/CreatePostsView.module.css';
 
 export default function CreatePostView() {
+    const API_BASE_URL = import.meta.env.VITE_API_URL;
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         title: '',
         body: '',
-        user_id: 2
     });
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -19,30 +21,34 @@ export default function CreatePostView() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         
-        // Basic validation
-        if (!formData.title.trim() || !formData.body.trim() || !formData.user_id) {
+        if (!formData.title.trim() || !formData.body.trim()) {
             alert('Please fill in all fields');
             return;
         }
 
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+            alert('You must be logged in to comment');
+            return;
+        }
+
         try {
-            const response = await fetch('http://localhost:3000/posts', {
+            const response = await fetch(`${API_BASE_URL}/posts`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify({
                     title: formData.title,
                     body: formData.body,
-                    user_id: formData.user_id
                 }),
             });
 
             if (response.ok) {
                 alert('Post created successfully!');
-                // Reset form
-                setFormData({ title: '', body: '', user_id: 2 });
-
+                setFormData({ title: '', body: ''});
+                navigate(`/posts/`);
             } else {
                 alert('Failed to create post');
             }
@@ -68,22 +74,6 @@ export default function CreatePostView() {
                         onChange={handleInputChange}
                         className={styles.input}
                         placeholder="Enter post title..."
-                        required
-                    />
-                </div>
-
-                <div className={styles.formGroup}>
-                    <label htmlFor="user_id" className={styles.label}>
-                        User ID
-                    </label>
-                    <input
-                        type="number"
-                        id="user_id"
-                        name="user_id"
-                        value={formData.user_id}
-                        onChange={handleInputChange}
-                        className={styles.input}
-                        placeholder="Enter your id..."
                         required
                     />
                 </div>
